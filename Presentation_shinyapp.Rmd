@@ -1,0 +1,69 @@
+---
+title: "Presentation Shiny app"
+author: "Rosina Plomp"
+date: "May 20, 2018"
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## App idea
+This app will show two common type of functions -- linear and exponential. 
+
+## ui.R code - pt1
+The ui.R code specifies the layout -- a sidebar containing two checkboxes and a main panel divided in two containing two plots.
+```{r ui1, message=FALSE, warning=FALSE, eval=FALSE,echo=T}
+# Define UI 
+shinyUI(fluidPage(
+  # Application title
+  titlePanel("Types of functions"),
+  # Sidebar 
+  sidebarLayout(
+    sidebarPanel(
+       checkboxInput("linear", "linear", value=FALSE), 
+        checkboxInput("exponential", "exponential", value=FALSE)),
+```
+## ui.R code - pt2
+The ui.R code specifies the layout -- a sidebar containing two checkboxes and a main panel divided in two containing two plots.
+```{r ui2, message=FALSE, warning=FALSE, eval=FALSE,echo=T}
+    # Show a plot of the generated distribution
+    mainPanel(
+              fluidRow(
+                splitLayout(style = "border: 1px solid silver:", 
+                            cellWidths = c(300,300), 
+                            plotOutput("plotgraph1"), 
+                            plotOutput("plotgraph2")
+                ))))))
+```
+## server.R code - pt1
+In the server.R code, two sets of x and y coordinates are generated and plotted. 
+```{r server1, message=FALSE, warning=FALSE, eval=FALSE,echo=T}
+#define data
+  x_lin<-c(1:100)
+  y_lin<-x_lin
+  x_exp<-c(1:100)
+  y_exp<-(x_exp)^2
+```
+## server.R code - pt2
+```{r server2, message=FALSE, warning=FALSE, eval=FALSE,echo=T}
+# Define server logic required to draw plots
+shinyServer(function(input, output) {
+    plotlin <- reactive({
+      input$linear
+      if (input$linear){
+        return(plot(y_lin~x_lin, 
+            main="Linear function (y~x)",xlab="x",ylab="y",col="blue"))
+      } else {return(NULL)}})
+    plotexp <- reactive({
+      input$exponential
+      if (input$exponential){
+        return(plot(y_exp~x_exp,
+            main="Exponential function (y~x^2)",xlab="x",ylab="y",col="green"))
+      } else {return(NULL)}})   
+    output$plotgraph1 = renderPlot({plotlin()})
+    output$plotgraph2 = renderPlot({plotexp()})})
+```
+
+
