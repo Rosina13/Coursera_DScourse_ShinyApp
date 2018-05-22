@@ -1,0 +1,28 @@
+---
+title: "Presentation Shiny app"
+author: "Rosina Plomp"
+date: "May 22, 2018"
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## App idea - name generator
+This app will combine parts of names to generate a new name. 
+For example -- the first part of Olivia and last part of Jessica can form the new names Olica and Jessia. 
+
+## Data origin
+Wikipedia has a list of the most common names per country/region. From these I took around 10 common prefixes and suffixes. I also took names from my own family (Plomp-Winkler), and added prefixes and suffixes from those. 
+
+The user can choose which type(s) of name parts to add by checking the appropriate boxes.
+
+## Try it and have fun!
+https://rosina.shinyapps.io/name-mix/
+
+## References
+Common names: https://en.wikipedia.org/wiki/List_of_most_popular_given_names
+
+App code: https://github.com/Rosina13/ShinyApp_assignment
+
